@@ -1,0 +1,1 @@
+- Add some kind of DIFF colored output to assert_equals output.
