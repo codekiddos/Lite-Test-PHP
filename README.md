@@ -4,7 +4,7 @@
 
 	// 1. Include Lite Test PHP
 	
-	require_once path_to_lite_test/LiteTest.php;
+	require_once "path_to_lite_test/LiteTest.php";
 	
 	
 	// 2. Create a TestCase and add some tests. Test functions must have a test_ prefix
@@ -30,7 +30,7 @@
 	$runner->print_results();
 Will output:
 
-![LiteTestPHP CLI example output](doc/images/LiteTestPHP_example_output.png)
+![LiteTestPHP CLI example output](https://github.com/txau/Lite-Test-PHP/raw/master/doc/images/LiteTestPHP_example_output.png)
 
 ## Extended documentation
 
