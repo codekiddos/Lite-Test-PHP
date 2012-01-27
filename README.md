@@ -30,7 +30,7 @@
 	$runner->print_results();
 Will output:
 
-![LiteTestPHP CLI example output](https://github.com/txau/Lite-Test-PHP/raw/master/doc/images/LiteTestPHP_example_output.png)
+![LiteTestPHP CLI example output](https://github.com/codekiddos/Lite-Test-PHP/raw/master/doc/images/LiteTestPHP_example_output.png)
 
 ## Extended documentation
 
