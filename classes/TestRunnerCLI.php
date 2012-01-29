@@ -34,7 +34,7 @@ class TestRunnerCLI extends TestRunner
 	
 	protected function print_summary()
 	{
-		echo "\n";
+		echo "\n\n";
 		echo "Cases: " . sizeof($this->test_cases) . "  ";
 		echo "Passed tests: " . ($this->total_results + $this->total_failed) ."  ";
 		echo "Failed tests: " . $this->total_failed ."  ";
@@ -63,7 +63,7 @@ class TestRunnerCLI extends TestRunner
 	
 	protected function print_test_pass($case_name, TestResult $result)
 	{
-		echo "[".self::GREEN_TEXT.self::PASS.self::WHITE_TEXT."] [$case_name] {$result->get_name()}\n";
+		echo "\n[".self::GREEN_TEXT.self::PASS.self::WHITE_TEXT."] [$case_name] {$result->get_name()}";
 	}
 	
 	protected function print_test_fail($case_name, TestResult $result)
@@ -72,7 +72,7 @@ class TestRunnerCLI extends TestRunner
 		$trace = $exception->getTrace();
 		$line = $trace[1]["line"];
 		
-		echo "[".self::RED_TEXT.self::FAIL.self::WHITE_TEXT."] [$case_name] ".self::RED_TEXT."{$result->get_name()}".self::WHITE_TEXT." line $line\n\n";
+		echo "\n[".self::RED_TEXT.self::FAIL.self::WHITE_TEXT."] [$case_name] ".self::RED_TEXT."{$result->get_name()}".self::WHITE_TEXT." line $line\n\n";
 		echo $exception->getMessage()."\n";
 		echo $exception->getTraceAsString()."\n\n";
 	}
