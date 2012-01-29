@@ -69,10 +69,10 @@ class TestRunnerCLI extends TestRunner
 	protected function print_test_fail($case_name, TestResult $result)
 	{
 		$exception = $result->get_exception();
-		$trace = $exception->getTrace();
-		$line = $trace[1]["line"];
+		$line = $result->get_error_line();
 		
-		echo "\n[".self::RED_TEXT.self::FAIL.self::WHITE_TEXT."] [$case_name] ".self::RED_TEXT."{$result->get_name()}".self::WHITE_TEXT." line $line\n\n";
+		echo "\n[".self::RED_TEXT.self::FAIL.self::WHITE_TEXT."] [$case_name] "
+			.self::RED_TEXT."{$result->get_name()}".self::WHITE_TEXT." line {$result->get_error_line()}\n\n";
 		echo $exception->getMessage()."\n";
 		echo $exception->getTraceAsString()."\n\n";
 	}

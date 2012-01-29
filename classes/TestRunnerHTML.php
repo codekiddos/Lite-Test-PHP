@@ -77,11 +77,9 @@ class TestRunnerHTML extends TestRunner
 	protected function get_test_fail(TestResult $result)
 	{
 		$exception = $result->get_exception();
-		$trace = $exception->getTrace();
-		$line = $trace[1]["line"];
 		
 		$output  = "<li class='fail'>\n<span class='fail'>".self::FAIL."</span>\n";
-		$output .= "<span class='test_name'>{$result->get_name()} line $line</span>\n";
+		$output .= "<span class='test_name'>{$result->get_name()} line {$result->get_error_line()}</span>\n";
 		$output .= "<pre class='message'>{$exception->getMessage()}</pre>\n";
 		$output .= "<pre class='stack_trace'>{$exception->getTraceAsString()}</pre>\n</li>\n";
 		
