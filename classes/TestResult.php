@@ -6,6 +6,7 @@ class TestResult
 	
 	public $name;
 	public $assertions = array();
+	public $error_line;
 	
 	public function __construct($name)
 	{
@@ -49,5 +50,15 @@ class TestResult
 			if($test_failed = !$one_assertion[self::RESULT]) 
 				return $one_assertion[self::EXCEPTION];
 		}
+	}
+	
+	public function set_error_line($line)
+	{
+		$this->error_line = $line;
+	}
+	
+	public function get_error_line()
+	{
+		return $this->error_line;
 	}
 }

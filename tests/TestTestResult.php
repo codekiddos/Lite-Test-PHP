@@ -21,4 +21,12 @@ class TestTestResult extends TestCase
 		$this->assert_false($test_result->passed());
 		$this->assert_true($test_result->get_exception() instanceof Exception);
 	}
+	
+	function test_error_line()
+	{
+		$test_result = new TestResult("test name");
+		
+		$test_result->set_error_line("some line");
+		$this->assert_equals("some line", $test_result->get_error_line());
+	}
 }
