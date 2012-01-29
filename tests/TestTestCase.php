@@ -85,7 +85,7 @@ class TestTestCase extends TestCase
 		$this->assert_equals($expected, $test_list);
 	}
 	
-	public function test_run()
+	function test_run()
 	{
 		$test_case = new TestingTestCase();
 		
@@ -96,5 +96,6 @@ class TestTestCase extends TestCase
 		$this->assert_equals("TestResult", get_class($results["test_two"]));
 		$this->assert_equals("test_one", $results["test_one"]->get_name());
 		$this->assert_equals(1, $results["test_one"]->count_assertions());
+		$this->assert_equals(14, $results["test_two"]->get_error_line());
 	}
 }

@@ -20,6 +20,25 @@ abstract class TestCase
 	protected function store_exception(Exception $exception)
 	{
 		$this->temporal_result->add_assertion(false, $exception);
+		$this->find_error_line($exception);
+	}
+	
+	protected function find_error_line(Exception $exception)
+	{
+		$trace = $exception->getTrace();
+		$line = "Unknown line";
+		$case_name = get_class($this);
+		
+		foreach($trace as $execution_point)
+		{
+			$path_info = pathinfo($execution_point["file"]);
+			$file = $path_info["filename"];
+			
+			if($file == $case_name)
+				$line = $execution_point["line"];
+		}
+		
+		$this->temporal_result->set_error_line($line);
 	}
 	
 	public function assert_true($prove)
