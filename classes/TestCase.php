@@ -31,11 +31,18 @@ abstract class TestCase
 		
 		foreach($trace as $execution_point)
 		{
-			$path_info = pathinfo($execution_point["file"]);
-			$file = $path_info["filename"];
+			$file = "";
+			if(isset($execution_point["file"]))
+			{
+				$path_info = pathinfo($execution_point["file"]);
+				$file = $path_info["filename"];
+			}
 			
 			if($file == $case_name)
+			{
 				$line = $execution_point["line"];
+				break;
+			}
 		}
 		
 		$this->temporal_result->set_error_line($line);
