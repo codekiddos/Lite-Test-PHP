@@ -4,27 +4,29 @@ class TestTestRunnerCLI extends TestCase
 	function test_prints_results()
 	{
 		$CLI_runner = new TestRunnerCLI();
+		$CLI_runner->time_precision = 0;
 		$CLI_runner->add_test_case(new TestingTestCase());
-		$CLI_runner->run();
-		
+
 		ob_start();
-			$CLI_runner->print_results();
-			$result = ob_get_contents();
+		$CLI_runner->print_results();
+		$result = ob_get_contents();
 		ob_end_clean();
-		
+
 		$prove = explode("\n", $result);
-		
+
 		$clear_screen = urldecode("%1B%5BH%1B%5B2J");
-		$this->assert_equals($clear_screen, $prove[0]);
+		//$this->assert_equals($clear_screen, $prove[0]);
+
+		$failed_test = "[\x1b[0;31mFAIL\x1b[m] [0 ms] [TestingTestCase] \x1b[0;31mtest_one\x1b[m line 9";
+		$this->assert_equals($failed_test, $prove[1]);
 		
-		$passed_test = "[\x1b[0;32mPASS\x1b[m] [TestingTestCase] test_one";
-		$this->assert_equals($passed_test, $prove[1]);
+		$passed_test = "\[\\x1b\[0;32mPASS\\x1b\[m\] \[0 ms\] \[TestingTestCase\] test_two";
+
+		$this->assert_true(preg_match("/".$passed_test."/", $result) == 1);
+
+		$summary = "Cases: 1  Passed tests: 2  Failed tests: 1  Total assertions: 3  Running time: 0 ms";
 		
-		$failed_test = "[\x1b[0;31mFAIL\x1b[m] [TestingTestCase] \x1b[0;31mtest_two\x1b[m line 14";
-		$this->assert_equals($failed_test, $prove[2]);
-		
-		$summary = "Cases: 1  Passed tests: 2  Failed tests: 1  Total assertions: 3";
-		$this->assert_equals($summary, $prove[22]);
+		$this->assert_true(preg_match("/".$summary."/", $result) == 1);
 	}
 	
 	function test_if_case_provided_in_construct_autoruns()

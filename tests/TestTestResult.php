@@ -29,4 +29,20 @@ class TestTestResult extends TestCase
 		$test_result->set_error_line("some line");
 		$this->assert_equals("some line", $test_result->get_error_line());
 	}
+	
+	function test_running_time()
+	{
+		$test_result = new TestResult("test name");
+
+		$test_result->set_running_time(0.2316759);
+		$this->assert_equals(0.2316759, $test_result->get_running_time());
+	}
+	
+	function test_testcase()
+	{
+		$test_result = new TestResult("test name");
+
+		$test_result->set_testcase('My testcase');
+		$this->assert_equals('My testcase', $test_result->get_testcase());
+	}
 }

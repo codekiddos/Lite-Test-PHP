@@ -8,7 +8,7 @@ class TestTestCase extends TestCase
 		
 		$this->assert_true($test_case->pass());
 		$this->assert_equals(1, $test_case->temporal_result->count_assertions());
-	}	
+	}
 	
 	function test_fail()
 	{
@@ -89,13 +89,15 @@ class TestTestCase extends TestCase
 	{
 		$test_case = new TestingTestCase();
 		
-		$results = $test_case->run();
+		$results = $test_case->run("TestingTestCase");
 	
 		$this->assert_true(is_array($results));
 		$this->assert_equals("TestResult", get_class($results["test_one"]));
 		$this->assert_equals("TestResult", get_class($results["test_two"]));
 		$this->assert_equals("test_one", $results["test_one"]->get_name());
-		$this->assert_equals(1, $results["test_one"]->count_assertions());
-		$this->assert_equals(14, $results["test_two"]->get_error_line());
+		$this->assert_equals(2, $results["test_one"]->count_assertions());
+		$this->assert_equals(9, $results["test_one"]->get_error_line());
+		$this->assert_true($results["test_one"]->get_running_time() > 0);
+ 		$this->assert_true($results["test_two"]->get_running_time() > 0);
 	}
 }

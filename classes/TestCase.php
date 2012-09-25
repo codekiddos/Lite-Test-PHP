@@ -94,29 +94,35 @@ abstract class TestCase
 		return (substr($method_name, 0, 5) == self::TEST_METHOD_PREFIX);
 	}
 	
-	public function run()
+	public function run($testcase)
 	{
 		$results = array();
 		
 		foreach($this->get_tests() as $one_test)
 		{
-			$results[$one_test] = $this->run_one($one_test);
+			$results[$one_test] = $this->run_one($one_test, $testcase);
 		}
 
 		return $results;
 	}
 	
-	public function run_one($test_name)
+	public function run_one($test_name, $testcase)
 	{
 		$this->temporal_result = new TestResult($test_name);
+		$this->temporal_result->set_testcase($testcase);
+		
 		try
 		{
+			$start_time = microtime(true);
 			$this->$test_name();
 		}
 		catch(Exception $exception)
 		{
 			$this->store_exception($exception);
 		}
+		
+		$result_time = microtime(true) - $start_time;
+		$this->temporal_result->set_running_time($result_time);
 
 		return $this->temporal_result;
 	}

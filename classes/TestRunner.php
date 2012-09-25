@@ -22,7 +22,7 @@ abstract class TestRunner
 	{
 		foreach($this->test_cases as $case_name => $case)
 		{
-			$this->test_results[$case_name] = $case->run();
+			$this->test_results[$case_name] = $case->run($case_name);
 		}
 	}
 	

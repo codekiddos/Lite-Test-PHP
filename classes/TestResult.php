@@ -7,6 +7,8 @@ class TestResult
 	public $name;
 	public $assertions = array();
 	public $error_line;
+	public $running_time = 0;
+	public $testcase;
 	
 	public function __construct($name)
 	{
@@ -21,6 +23,16 @@ class TestResult
 	public function set_name($name)
 	{
 		$this->name = $name;
+	}
+	
+	public function get_testcase()
+	{
+		return $this->testcase;
+	}
+
+	public function set_testcase($testcase)
+	{
+		$this->testcase = $testcase;
 	}
 	
 	public function add_assertion($result, Exception $exception = null)
@@ -60,5 +72,15 @@ class TestResult
 	public function get_error_line()
 	{
 		return $this->error_line;
+	}
+	
+	public function set_running_time($time)
+	{
+		$this->running_time = $time;
+	}
+	
+	public function get_running_time()
+	{
+		return $this->running_time;
 	}
 }
