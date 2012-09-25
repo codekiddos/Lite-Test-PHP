@@ -100,4 +100,18 @@ class TestTestCase extends TestCase
 		$this->assert_true($results["test_one"]->get_running_time() > 0);
  		$this->assert_true($results["test_two"]->get_running_time() > 0);
 	}
+	
+	function test_befor_each()
+	{
+		$test_case = new TestingTestCase();
+		$test_case->run("TestingTestCase");
+		$this->assert_equals(2, $test_case->before_each_call_count);
+	}
+	
+	function test_after_each()
+	{
+		$test_case = new TestingTestCase();
+		$test_case->run("TestingTestCase");
+		$this->assert_equals(2, $test_case->after_each_call_count);
+	}
 }
