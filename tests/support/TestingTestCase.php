@@ -13,4 +13,17 @@ class TestingTestCase extends TestCase
 	{
 		$this->assert_true(true);
 	}
+	
+	public $before_each_call_count = 0;
+	public $after_each_call_count = 0;
+	
+	public function before_each()
+	{
+		$this->before_each_call_count++;
+	}
+
+	public function after_each()
+	{
+		$this->after_each_call_count++;
+	}
 }

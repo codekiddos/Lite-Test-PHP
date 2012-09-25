@@ -114,18 +114,23 @@ abstract class TestCase
 		try
 		{
 			$start_time = microtime(true);
+			$this->before_each();
 			$this->$test_name();
 		}
 		catch(Exception $exception)
 		{
 			$this->store_exception($exception);
 		}
-		
+
+		$this->after_each();
 		$result_time = microtime(true) - $start_time;
-		$this->temporal_result->set_running_time($result_time);
+		$this->temporal_result->set_running_time($result_time);		
 
 		return $this->temporal_result;
 	}
+	
+	public function before_each(){}
+	public function after_each(){}
 	
 	protected function variable_dump($subject)
 	{
