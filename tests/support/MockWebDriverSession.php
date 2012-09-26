@@ -6,6 +6,13 @@ class MockWebDriverSession extends WebDriverSession
 {
 	protected $page_loaded = 0;
 	
+	public $window_handles;
+	
+	public function __construct()
+	{
+		$this->window_handles = array(new StdClass(), new StdClass());
+	}
+	
 	public function open($url)
 	{
 		$this->add_trace(__FUNCTION__, $url);
@@ -14,6 +21,22 @@ class MockWebDriverSession extends WebDriverSession
 	public function close()
 	{
 		$this->add_trace(__FUNCTION__);
+	}
+	
+	public function window_handles()
+	{
+		$this->add_trace(__FUNCTION__);
+		return $this->window_handles;
+	}
+	
+	public function focusWindow($window_handle)
+	{
+		$this->add_trace(__FUNCTION__, $window_handle);
+	}
+	
+	public function frame($frame)
+	{
+		$this->add_trace(__FUNCTION__, $frame);
 	}
 	
 	public function element($selector_type, $selector)
@@ -34,11 +57,7 @@ class MockWebDriverSession extends WebDriverSession
 			$this->page_loaded++;
 			throw new Exception();
 		}
-			
-		
-		if($selector == 'non_existant_element_waiting')
-			throw new Exception();
-			
+	
 	}
 	
 	public function elements($selector_type, $selector)
@@ -49,21 +68,16 @@ class MockWebDriverSession extends WebDriverSession
 		if($selector == 'existant_element')
 			return $elements;
 		
-		/*if($selector == 'non_existant_element')
+		if($selector == 'non_existant_element')
 			throw new Exception();
 			
 		if($selector == 'existant_element_waiting')
 		{
 			if($this->page_loaded >= 5)
-				return new MockWebDriverElement();
+				return $elements;
 				
 			$this->page_loaded++;
 			throw new Exception();
 		}
-			
-		
-		if($selector == 'non_existant_element_waiting')
-			throw new Exception();*/
-			
 	}
 }

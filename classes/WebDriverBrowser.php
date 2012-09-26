@@ -27,7 +27,9 @@ class WebDriverBrowser
 	
 	public function elements($selector, $selector_type = self::DEFAULT_SELECTOR_TYPE, $max_waiting_time = self::DEFAULT_MAX_WAITING_TIME)
 	{
+		$this->wait_for_element($selector, $selector_type, $max_waiting_time);
 		return $this->session->elements($selector_type, $selector);
+
 	}
 	
 	public function wait_for_element($selector, $selector_type = self::DEFAULT_SELECTOR_TYPE, $max_waiting_time = self::DEFAULT_MAX_WAITING_TIME)
@@ -49,13 +51,28 @@ class WebDriverBrowser
 				continue;
 			}
 			break;
-		}
-		
+		}		
 	}
 	
 	protected function get_miliseconds() 
 	{
 		return round(microtime(true) * 1000);
+	}
+	
+	public function to_window($window_number)
+	{
+		$handles = $this->session->window_handles();
+		$this->session->focusWindow($handles[$window_number]);
+	}
+	
+	public function to_frame($frame)
+	{
+		$this->session->frame(array("id" => $frame));
+	}
+	
+	public function to_main_frame()
+	{
+		$this->to_frame(null);
 	}
 	
 	public function __call($method, $arguments)
