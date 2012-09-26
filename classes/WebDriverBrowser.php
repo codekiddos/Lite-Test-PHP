@@ -13,7 +13,7 @@ class WebDriverBrowser
 		$this->web_driver = $web_driver;
 	}
 	
-	public function close()
+	public function new_session()
 	{
 		$this->session->close();
 		$this->session = $this->web_driver->session();

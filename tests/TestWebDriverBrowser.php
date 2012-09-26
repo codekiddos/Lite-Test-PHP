@@ -18,10 +18,10 @@ class TestWebDriverBrowser extends TestCase
 		$this->assert_equals($this->browser->session->trace[0]["args"], "test_url");
 	}
 	
-	public function test_close()
+	public function test_new_session()
 	{
 		$old_session = $this->browser->session;
-		$this->browser->close();
+		$this->browser->new_session();
 		
 		$this->assert_equals($old_session->trace[0]["method"], "close");
 		$this->assert_equals($this->web_driver->trace[1]["method"], "session");
