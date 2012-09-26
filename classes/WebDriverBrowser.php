@@ -75,6 +75,21 @@ class WebDriverBrowser
 		$this->to_frame(null);
 	}
 	
+	public function set_element_value($element, $value, $selector_type = self::DEFAULT_SELECTOR_TYPE)
+	{
+		if(!$element instanceof WebDriverElement)
+			$element = $this->element($element, $selector_type);
+		
+		$element->value($this->split_string($value));
+		
+		return $element;
+	}
+	
+	protected function split_string($string)
+	{
+	   return array("value" => preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY));
+	}
+	
 	public function __call($method, $arguments)
 	{
 		call_user_func_array(array($this->session, $method), $arguments);
