@@ -16,5 +16,13 @@ $test_runner->add_test_case(new TestTestRunnerCLI());
 require_once dirname(__FILE__)."/TestTestRunnerHTML.php";
 $test_runner->add_test_case(new TestTestRunnerHTML());
 
+require_once dirname(__FILE__)."/support/MockTracer.php";
+require_once dirname(__FILE__)."/support/MockWebDriver.php";
+require_once dirname(__FILE__)."/support/MockWebDriverElement.php";
+require_once dirname(__FILE__)."/support/MockWebDriverSession.php";
+require_once dirname(__FILE__)."/TestWebDriverBrowser.php";
+$test_runner->add_test_case(new TestWebDriverBrowser());
+
+require_once dirname(__FILE__)."/support/TestingWebDriver.php";
 require_once dirname(__FILE__)."/TestTestCaseSelenium.php";
 $test_runner->add_test_case(new TestTestCaseSelenium());

@@ -1,0 +1,65 @@
+<?php
+class WebDriverBrowser
+{
+	public $session;
+	protected $web_driver;
+	
+	const DEFAULT_MAX_WAITING_TIME  = 10000;
+	const DEFAULT_SELECTOR_TYPE = 'css selector';
+	
+	public function __construct(WebDriver $web_driver)
+	{
+		$this->session = $web_driver->session();
+		$this->web_driver = $web_driver;
+	}
+	
+	public function close()
+	{
+		$this->session->close();
+		$this->session = $this->web_driver->session();
+	}
+	
+	public function element($selector, $selector_type = self::DEFAULT_SELECTOR_TYPE, $max_waiting_time = self::DEFAULT_MAX_WAITING_TIME)
+	{
+		$this->wait_for_element($selector, $selector_type, $max_waiting_time);
+		return $this->session->element($selector_type, $selector);
+	}
+	
+	public function elements($selector, $selector_type = self::DEFAULT_SELECTOR_TYPE, $max_waiting_time = self::DEFAULT_MAX_WAITING_TIME)
+	{
+		return $this->session->elements($selector_type, $selector);
+	}
+	
+	public function wait_for_element($selector, $selector_type = self::DEFAULT_SELECTOR_TYPE, $max_waiting_time = self::DEFAULT_MAX_WAITING_TIME)
+	{
+		$start_time = $this->get_miliseconds();
+
+		while(true)
+		{
+			try
+			{
+				$this->session->element($selector_type, $selector);
+			}
+			catch(Exception $exception)
+			{
+				$now = $this->get_miliseconds();
+				if(($now - $start_time) >= $max_waiting_time)
+					throw $exception;
+					
+				continue;
+			}
+			break;
+		}
+		
+	}
+	
+	protected function get_miliseconds() 
+	{
+		return round(microtime(true) * 1000);
+	}
+	
+	public function __call($method, $arguments)
+	{
+		call_user_func_array(array($this->session, $method), $arguments);
+	}
+}
