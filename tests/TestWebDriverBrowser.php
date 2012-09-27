@@ -86,7 +86,15 @@ class TestWebDriverBrowser extends TestCase
 		$this->browser->to_window(1);
 		$this->assert_equals($this->browser->session->trace[0]["method"], "window_handles");
 		$this->assert_equals($this->browser->session->trace[1]["method"], "focusWindow");
-		$this->assert_equals($this->browser->session->trace[1]["args"], $this->browser->session->window_handles[1]);
+		$this->assert_equals($this->browser->session->trace[1]["args"], "handle2");
+	}
+	
+	public function test_focus_window_no_parameters()
+	{
+		$this->browser->to_window();
+		$this->assert_equals($this->browser->session->trace[0]["method"], "window_handles");
+		$this->assert_equals($this->browser->session->trace[1]["method"], "focusWindow");
+		$this->assert_equals($this->browser->session->trace[1]["args"], "handle3");
 	}
 	
 	public function test_focus_frame()

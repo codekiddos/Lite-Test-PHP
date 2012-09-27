@@ -59,9 +59,13 @@ class WebDriverBrowser
 		return round(microtime(true) * 1000);
 	}
 	
-	public function to_window($window_number)
+	public function to_window($window_number = null)
 	{
 		$handles = $this->session->window_handles();
+		
+		if($window_number == null)
+			$window_number = sizeof($handles)-1;
+		
 		$this->session->focusWindow($handles[$window_number]);
 	}
 	

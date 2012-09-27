@@ -10,7 +10,7 @@ class MockWebDriverSession extends WebDriverSession
 	
 	public function __construct()
 	{
-		$this->window_handles = array(new StdClass(), new StdClass());
+		$this->window_handles = array("handle1", "handle2", "handle3");
 	}
 	
 	public function open($url)
