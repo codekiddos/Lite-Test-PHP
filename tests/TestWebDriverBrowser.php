@@ -100,8 +100,8 @@ class TestWebDriverBrowser extends TestCase
 	public function test_focus_frame()
 	{
 		$this->browser->to_frame(1);
-		$this->assert_equals($this->browser->session->trace[0]["method"], "frame");
-		$this->assert_equals($this->browser->session->trace[0]["args"], array("id" => 1));
+		$this->assert_equals($this->browser->session->trace[6]["method"], "frame");
+		$this->assert_equals($this->browser->session->trace[6]["args"], array("id" => 1));
 	}
 	
 	public function test_focus_main_frame()

@@ -37,6 +37,7 @@ class MockWebDriverSession extends WebDriverSession
 	public function frame($frame)
 	{
 		$this->add_trace(__FUNCTION__, $frame);
+		if($this->page_loaded < 5 AND $frame["id"] != null) throw new Exception();
 	}
 	
 	public function element($selector_type, $selector)
@@ -49,7 +50,7 @@ class MockWebDriverSession extends WebDriverSession
 		if($selector == 'non_existant_element')
 			throw new Exception();
 			
-		if($selector == 'existant_element_waiting')
+		if($selector == 'existant_element_waiting' OR $selector == "frame")
 		{
 			if($this->page_loaded >= 5)
 				return new MockWebDriverElement();

@@ -71,6 +71,9 @@ class WebDriverBrowser
 	
 	public function to_frame($frame)
 	{
+		if($frame != null)
+			$this->wait_for_element("frame");
+			
 		$this->session->frame(array("id" => $frame));
 	}
 	
