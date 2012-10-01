@@ -87,6 +87,7 @@ class WebDriverBrowser
 		if(!$element instanceof WebDriverElement)
 			$element = $this->element($element, $selector_type);
 		
+		$element->clear();
 		$element->value($this->split_string($value));
 		
 		return $element;

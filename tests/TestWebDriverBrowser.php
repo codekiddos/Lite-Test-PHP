@@ -114,14 +114,17 @@ class TestWebDriverBrowser extends TestCase
 	public function test_set_element_value()
 	{
 		$element = $this->browser->set_element_value("existant_element", "text", "custom selector");
-		$this->assert_equals($element->trace[0]["method"], "value");
-		$this->assert_equals($element->trace[0]["args"], array("value" =>array("t","e","x","t")));
+		
+		$this->assert_equals($element->trace[0]["method"], "clear");
+		$this->assert_equals($element->trace[1]["method"], "value");
+		$this->assert_equals($element->trace[1]["args"], array("value" =>array("t","e","x","t")));
 		
 		$this->assert_equals($this->browser->session->trace[0]['args'], array('custom selector', 'existant_element'));
 		
 		$second_element = $this->browser->element("existant_element");
 		$second_element = $this->browser->set_element_value($second_element, "text 2");
-		$this->assert_equals($second_element->trace[0]["method"], "value");
-		$this->assert_equals($second_element->trace[0]["args"], array("value" =>array("t","e","x","t"," ","2")));
+		$this->assert_equals($element->trace[0]["method"], "clear");
+		$this->assert_equals($second_element->trace[1]["method"], "value");
+		$this->assert_equals($second_element->trace[1]["args"], array("value" =>array("t","e","x","t"," ","2")));
 	}
 }
